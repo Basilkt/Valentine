@@ -7,20 +7,19 @@
     <style>
         body { text-align: center; font-family: 'Arial', sans-serif; background-color: #ffe6e6; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
         .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); width: 85%; max-width: 350px; position: relative; z-index: 10; }
-        
-        /* Exact filename match */
-        #valentine-img { width: 100%; height: auto; border-radius: 15px; margin-bottom: 15px; display: block; border: 2px solid #ff4d6d; }
-        
+        #valentine-img { width: 100%; height: auto; border-radius: 15px; margin-bottom: 15px; display: block; }
         h1 { color: #d63384; font-size: 1.4rem; margin-bottom: 20px; }
-        .buttons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; position: relative; height: 50px; }
+        .buttons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; height: 50px; }
         button { font-size: 1.1rem; padding: 10px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
         #yes { background-color: #ff4d6d; color: white; }
-        #no { background-color: #adb5bd; color: white; position: absolute; z-index: 999; }
         
-        .heart { position: absolute; color: #ff4d6d; animation: float 3s linear infinite; opacity: 0; bottom: -10%; }
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-110vh); opacity: 0; }
+        /* The No button needs fixed positioning to jump anywhere on the screen */
+        #no { 
+            background-color: #adb5bd; 
+            color: white; 
+            position: fixed; 
+            transition: 0.1s; 
+            z-index: 999;
         }
     </style>
 </head>
@@ -28,19 +27,19 @@
 
     <div class="container">
         <img id="valentine-img" src="IMG_3444.jpeg" alt="Valentine Photo">
-        
         <h1 id="question">Will you be my Valentine? ❤️</h1>
-        
         <div class="buttons">
             <button id="yes" onclick="celebrate()">Yes!</button>
-            <button id="no" onmouseover="moveButton()" onclick="moveButton()">No</button>
+            <button id="no" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
         </div>
     </div>
 
     <script>
         function moveButton() {
+            // Calculate random positions, keeping the button inside the visible screen
             const x = Math.random() * (window.innerWidth - 100);
             const y = Math.random() * (window.innerHeight - 50);
+            
             const noBtn = document.getElementById('no');
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
@@ -49,18 +48,7 @@
         function celebrate() {
             document.getElementById('question').innerHTML = "Yay! See you then! 🥰";
             document.getElementById('no').style.display = 'none';
-            document.getElementById('yes').style.transform = 'scale(1.3)';
             document.getElementById('valentine-img').src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYybmNqZzRyeHh6bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lH4ADRtAYnGsLe/giphy.gif";
-            setInterval(createHeart, 300);
-        }
-
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 3000);
         }
     </script>
 </body>
