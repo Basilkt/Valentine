@@ -4,24 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Be My Valentine? ❤️</title>
-    <style>
+      <style>
         body { text-align: center; font-family: 'Arial', sans-serif; background-color: #ffe6e6; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
         .container { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); width: 85%; max-width: 350px; position: relative; z-index: 10; }
         #valentine-img { width: 100%; height: auto; border-radius: 15px; margin-bottom: 15px; display: block; }
         h1 { color: #d63384; font-size: 1.4rem; margin-bottom: 20px; }
-        .buttons { margin-top: 20px; display: flex; justify-content: center; gap: 15px; height: 50px; }
+        .buttons { margin-top: 20px; display: flex; justify-content: center; gap: 20px; height: 50px; align-items: center; }
         button { font-size: 1.1rem; padding: 10px 25px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
-        #yes { background-color: #ff4d6d; color: white; }
         
-        /* The No button needs fixed positioning to jump anywhere on the screen */
+        /* This keeps the Yes button in place */
+        #yes { background-color: #ff4d6d; color: white; position: relative; z-index: 1; }
+        
+        /* This allows the No button to jump without covering the Yes button at the start */
         #no { 
             background-color: #adb5bd; 
             color: white; 
             position: fixed; 
             transition: 0.1s; 
             z-index: 999;
+            /* This shifts it to the right so it doesn't overlap on load */
+            transform: translateX(60px); 
         }
     </style>
+
 </head>
 <body>
 
